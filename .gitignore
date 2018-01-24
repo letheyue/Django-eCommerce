@@ -9,3 +9,9 @@ eCommerce.sublime-project
 eCommerce.sublime-workspace
 
 pip-selfcheck.json
+
+.Python
+
+src/eCommerce/_pycache_/
+
+src/eCommerce/_init_.py
