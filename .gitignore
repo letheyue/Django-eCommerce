@@ -1,0 +1,11 @@
+include/
+
+lib/
+
+*/.DS_Store
+
+eCommerce.sublime-project
+
+eCommerce.sublime-workspace
+
+pip-selfcheck.json
