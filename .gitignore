@@ -12,9 +12,9 @@ pip-selfcheck.json
 
 .Python
 
-src/eCommerce/_pycache_/
+src/ecommerce/_pycache_/
 
-src/eCommerce/_init_.py
+src/ecommerce/_init_.py
 
 # ignore the document static_cdn
 static_cdn
@@ -22,3 +22,6 @@ static_cdn
 #ignore the document src/static_my_proj/img
 src/static_my_proj/img
 
+#ignore the _init_.py
+src/products/_init.py
+src/products/migrations
