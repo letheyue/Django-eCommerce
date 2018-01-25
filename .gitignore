@@ -15,3 +15,10 @@ pip-selfcheck.json
 src/eCommerce/_pycache_/
 
 src/eCommerce/_init_.py
+
+# ignore the document static_cdn
+static_cdn
+
+#ignore the document src/static_my_proj/img
+src/static_my_proj/img
+
