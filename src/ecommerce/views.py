@@ -6,7 +6,7 @@ from .forms import ContactForm, LoginForm, RegisterForm
 
 def home_page(request):
 	context = {
-		"title": "Hello World!",
+		# "title": "Hello World!",
 		"content": "Welcome to the home page"
 	}
 	if request.user.is_authenticated():
@@ -25,7 +25,8 @@ def contact_page(request):
 	context = {
 		"title": "Contact",
 		"content": "Welcome to the contact page",
-		"form": contact_form
+		"form": contact_form,
+		# "brand": "new Brand Name"
 	}
 	if contact_form.is_valid():
 		print(contact_form.cleaned_data)
