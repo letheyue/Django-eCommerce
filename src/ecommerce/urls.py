@@ -33,11 +33,11 @@ from .views import home_page, about_page, contact_page, login_page, register_pag
 
 
 urlpatterns = [
-	url(r'^$', home_page),
-	url(r'^about/$', about_page),
-	url(r'^contact/$', contact_page),
-	url(r'^login/$', login_page),
-	url(r'^register/$', register_page),
+	url(r'^$', home_page, name='home'),
+	url(r'^about/$', about_page, name='contact'),
+	url(r'^contact/$', contact_page, name='contact'),
+	url(r'^login/$', login_page, name='login'),
+	url(r'^register/$', register_page, name='register'),
 	url(r'^product/', include("products.urls", namespace='products')),
     # url(r'^products/$', ProductListView.as_view()),
     # url(r'^products-fbv/$', product_list_view),
