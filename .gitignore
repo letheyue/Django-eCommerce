@@ -25,3 +25,6 @@ src/static_my_proj/img
 #ignore the _init_.py
 src/products/_init.py
 src/products/migrations
+
+#ignore the draft code
+src/products/templates/bootstrap/
