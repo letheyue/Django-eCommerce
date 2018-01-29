@@ -23,8 +23,12 @@ static_cdn
 src/static_my_proj/img
 
 #ignore the _init_.py
-src/products/_init.py
+src/products/_init_.py
 src/products/migrations
 
 #ignore the draft code
 src/products/templates/bootstrap/
+
+#ignore the init and cache in search component
+src/search/migrations
+src/search/_init_.py
