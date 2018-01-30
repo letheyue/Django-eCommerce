@@ -33,3 +33,6 @@ src/products/templates/bootstrap/
 src/search/migrations
 src/search/__init__.py
 src/search/__pycache__
+
+#ignore the shell draft
+src/tags/shell_commands.py
