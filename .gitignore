@@ -36,3 +36,8 @@ src/search/__pycache__
 
 #ignore the shell draft
 src/tags/shell_commands.py
+
+#ignore the init and cache in tag component
+src/tag/migrations
+src/tag/__init__.py
+src/tag/__pycache__
