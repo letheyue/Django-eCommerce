@@ -22,6 +22,8 @@ from django.views.generic import TemplateView
 
 from .views import home_page, about_page, contact_page, login_page, register_page
 
+from carts.views import cart_home
+
 # from products.views import (
 # 		ProductListView, 
 # 		product_list_view, 
@@ -42,6 +44,7 @@ urlpatterns = [
     url(r'^bootstrap/$', TemplateView.as_view(template_name='bootstrap/example.html')),
 	url(r'^product/', include("products.urls", namespace='products')),
     url(r'^search/', include("search.urls", namespace='search')),
+    url(r'^cart/$', cart_home, name='cart'),
     # url(r'^products/$', ProductListView.as_view()),
     # url(r'^products-fbv/$', product_list_view),
     # # url(r'^products/(?P<pk>\d+)/$', ProductDetailView.as_view()),
