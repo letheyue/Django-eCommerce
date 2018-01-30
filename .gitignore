@@ -12,9 +12,9 @@ pip-selfcheck.json
 
 .Python
 
-src/ecommerce/_pycache_/
+src/ecommerce/__pycache__
 
-src/ecommerce/_init_.py
+src/ecommerce/__init__.py
 
 # ignore the document static_cdn
 static_cdn
@@ -22,8 +22,8 @@ static_cdn
 #ignore the document src/static_my_proj/img
 src/static_my_proj/img
 
-#ignore the _init_.py
-src/products/_init_.py
+#ignore the __init__.py
+src/products/__init__.py
 src/products/migrations
 
 #ignore the draft code
@@ -31,4 +31,5 @@ src/products/templates/bootstrap/
 
 #ignore the init and cache in search component
 src/search/migrations
-src/search/_init_.py
+src/search/__init__.py
+src/search/__pycache__
