@@ -16,6 +16,8 @@ src/ecommerce/__pycache__
 
 src/ecommerce/__init__.py
 
+src/ecommerce/*.pyc
+
 # ignore the document static_cdn
 static_cdn
 
@@ -23,8 +25,10 @@ static_cdn
 src/static_my_proj/img
 
 #ignore the __init__.py
+src/products/__pycache__/
 src/products/__init__.py
 src/products/migrations
+src/products/*.pyc
 
 #ignore the draft code
 src/products/templates/bootstrap/
@@ -33,16 +37,19 @@ src/products/templates/bootstrap/
 src/search/migrations
 src/search/__init__.py
 src/search/__pycache__
+src/search/*.pyc
 
 #ignore the shell draft
 src/tags/shell_commands.py
 
 #ignore the init and cache in tag component
-src/tag/migrations
-src/tag/__init__.py
-src/tag/
+src/tags/migrations
+src/tags/__init__.py
+src/tags/__pycache__
+src/tags/*.pyc
 
 #ignore the init and cache in carts component
 src/carts/migrations
 src/carts/__init__.py
 src/carts/__pycache__
+src/carts/*.pyc
