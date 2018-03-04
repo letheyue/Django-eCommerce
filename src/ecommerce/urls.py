@@ -19,8 +19,10 @@ from django.conf.urls.static import static
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.views.generic import TemplateView
+from django.contrib.auth.views import LogoutView
 
-from .views import home_page, about_page, contact_page, login_page, register_page
+from accounts.views import login_page, register_page
+from .views import home_page, about_page, contact_page
 
 # from products.views import (
 # 		ProductListView, 
@@ -43,6 +45,7 @@ urlpatterns = [
 	url(r'^product/', include("products.urls", namespace='products')),
     url(r'^search/', include("search.urls", namespace='search')),
     url(r'^cart/', include("carts.urls", namespace='cart')),
+    url(r'^logout/$', LogoutView.as_view(), name='logout'),
     # url(r'^products/$', ProductListView.as_view()),
     # url(r'^products-fbv/$', product_list_view),
     # # url(r'^products/(?P<pk>\d+)/$', ProductDetailView.as_view()),

@@ -59,3 +59,9 @@ src/orders/migrations
 src/orders/__init__.py
 src/orders/__pycache__
 src/orders/*.pyc
+
+#ignore the init and cache in accounts component
+src/accounts/migrations
+src/accounts/__init__.py
+src/accounts/__pycache__
+src/accounts/*.pyc
