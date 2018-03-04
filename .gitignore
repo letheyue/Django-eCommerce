@@ -65,3 +65,9 @@ src/accounts/migrations
 src/accounts/__init__.py
 src/accounts/__pycache__
 src/accounts/*.pyc
+
+#ignore the init and cache in billing component
+src/billing/migrations
+src/billing/__init__.py
+src/billing/__pycache__
+src/billing/*.pyc
