@@ -4,6 +4,7 @@ from decimal import Decimal
 
 from carts.models import Cart
 from ecommerce.utils import unique_order_id_generator 
+from billing.models import BillingProfile
 
 ORDER_STATUS_CHOICES = (
     ('created', 'Created'),
@@ -16,6 +17,7 @@ ORDER_STATUS_CHOICES = (
 class Order(models.Model):
 	# pk / id
     order_id        = models.CharField(max_length=120, blank=True) # char + number
+    billing_profile = models.ForeignKey(BillingProfile, null=True, blank=True)
     # billing_profile = ?
     # shipping_address
     # billing_address 
@@ -23,6 +25,7 @@ class Order(models.Model):
     status          = models.CharField(max_length=120, default='created', choices=ORDER_STATUS_CHOICES)
     shipping_total  = models.DecimalField(default=5.99, max_digits=100, decimal_places=2)
     total           = models.DecimalField(default=0.00, max_digits=100, decimal_places=2)
+    active          = models.BooleanField(default=True)
 
     def __str__(self):
         return self.order_id
@@ -31,6 +34,7 @@ class Order(models.Model):
         cart_total = self.cart.total
         shipping_total = self.shipping_total
         new_total = Decimal(cart_total) + Decimal(shipping_total)
+        new_total = round(new_total, 2)
         self.total = new_total
         self.save()
         return new_total
