@@ -7,6 +7,7 @@ from billing.models import BillingProfile
 from accounts.forms import LoginForm, GuestForm
 from accounts.models import GuestEmail
 from addresses.forms import AddressForm
+from addresses.forms import Address
 
 
 # def cart_create(user=None):
@@ -55,12 +56,32 @@ def checkout_home(request):
     guest_form = GuestForm()
 
     address_form = AddressForm()
+
+    billing_address_id = request.session.get("billing_address_id", None)
+    shipping_address_id = request.session.get("shipping_address_id", None)
     
     billing_profile, billing_profile_created = BillingProfile.objects.new_or_get(request)
     
     if billing_profile is not None:
         order_obj, order_obj_created = Order.objects.new_or_get(billing_profile, cart_obj)
+        if shipping_address_id:
+            order_obj.shipping_address = Address.objects.get(id=shipping_address_id)
+            del request.session["shipping_address_id"]
+        if billing_address_id:
+            order_obj.billing_address = Address.objects.get(id=billing_address_id) 
+            del request.session["billing_address_id"]
+        if billing_address_id or shipping_address_id:
+            order_obj.save()
     
+    if request.method == "POST":
+        "check that order is done"
+        is_done = order_obj.check_done()
+        if is_done:
+            order_obj.mark_paid()
+            request.session['cart_items'] = 0
+            del request.session['cart_id']
+            return redirect("/cart/success")
+
     context = {
         "object": order_obj,
         "billing_profile": billing_profile,
