@@ -71,3 +71,9 @@ src/billing/migrations
 src/billing/__init__.py
 src/billing/__pycache__
 src/billing/*.pyc
+
+#ignore the init and cache in addresses component
+src/addresses/migrations
+src/addresses/__init__.py
+src/addresses/__pycache__
+src/addresses/*.pyc
