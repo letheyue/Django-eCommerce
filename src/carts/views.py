@@ -30,7 +30,7 @@ def cart_detail_api_view(request):
             "name": x.name, 
             "price": x.price
             } 
-            for x in cart_obj.products.all().reverse()]
+            for x in cart_obj.products.all()]
     cart_data  = {"products": products, "subtotal": cart_obj.subtotal, "total": cart_obj.total}
     return JsonResponse(cart_data)
 
@@ -73,7 +73,8 @@ def cart_update(request):
                 "removed": not added,
                 "cartItemCount": cart_obj.products.count(),
             }
-            return JsonResponse(json_data)
+            return JsonResponse(json_data, status=200) # HttpResponse
+            # return JsonResponse({"message": "Error 400"}, status=400) # Django Rest Framework
 
     return redirect("cart:home")
 
