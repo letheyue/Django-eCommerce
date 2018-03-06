@@ -24,6 +24,7 @@ from django.contrib.auth.views import LogoutView
 from accounts.views import login_page, register_page, guest_register_view
 from .views import home_page, about_page, contact_page
 from addresses.views import checkout_address_create_view, checkout_address_reuse_view
+from carts.views import cart_detail_api_view
 
 # from products.views import (
 # 		ProductListView, 
@@ -50,6 +51,7 @@ urlpatterns = [
     url(r'^register/guest/$', guest_register_view, name='guest_register'),
     url(r'^checkout/address/create/$', checkout_address_create_view, name='checkout_address_create'),
     url(r'^checkout/address/reuse/$', checkout_address_reuse_view, name='checkout_address_reuse'),
+    url(r'^api/cart/$', cart_detail_api_view, name='api-cart'),
     # url(r'^products/$', ProductListView.as_view()),
     # url(r'^products-fbv/$', product_list_view),
     # # url(r'^products/(?P<pk>\d+)/$', ProductDetailView.as_view()),
