@@ -77,3 +77,6 @@ src/addresses/migrations
 src/addresses/__init__.py
 src/addresses/__pycache__
 src/addresses/*.pyc
+
+#ignore the json data
+src/products/fixtures/
