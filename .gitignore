@@ -80,3 +80,9 @@ src/addresses/*.pyc
 
 #ignore the json data
 src/products/fixtures/
+
+#ignore the init and cache in analytics component
+src/analytics/migrations
+src/analytics/__init__.py
+src/analytics/__pycache__
+src/analytics/*.pyc
