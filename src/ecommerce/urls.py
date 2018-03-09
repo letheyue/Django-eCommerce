@@ -25,6 +25,7 @@ from accounts.views import LoginView, RegisterView, guest_register_view
 from .views import home_page, about_page, contact_page
 from addresses.views import checkout_address_create_view, checkout_address_reuse_view
 from carts.views import cart_detail_api_view
+from billing.views import payment_method_view
 
 # from products.views import (
 # 		ProductListView, 
@@ -52,6 +53,7 @@ urlpatterns = [
     url(r'^checkout/address/create/$', checkout_address_create_view, name='checkout_address_create'),
     url(r'^checkout/address/reuse/$', checkout_address_reuse_view, name='checkout_address_reuse'),
     url(r'^api/cart/$', cart_detail_api_view, name='api-cart'),
+    url(r'^billing/payment-method/$', payment_method_view, name='billing-payment-method'),
     # url(r'^products/$', ProductListView.as_view()),
     # url(r'^products-fbv/$', product_list_view),
     # # url(r'^products/(?P<pk>\d+)/$', ProductDetailView.as_view()),
