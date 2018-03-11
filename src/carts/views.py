@@ -115,7 +115,7 @@ def checkout_home(request):
             del request.session["billing_address_id"]
         if billing_address_id or shipping_address_id:
             order_obj.save()
-            has_card = billing_profile.has_card
+        has_card = billing_profile.has_card
     
     if request.method == "POST":
         "check that order is done"
