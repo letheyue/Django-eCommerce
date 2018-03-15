@@ -16,8 +16,6 @@ class MarketingPreference(models.Model):
         return self.user.email
 
 
-
-
 def marketing_pref_create_receiver(sender, instance, created, *args, **kwargs):
     if created:
         status_code, response_data = Mailchimp().subscribe(instance.user.email)
@@ -25,6 +23,7 @@ def marketing_pref_create_receiver(sender, instance, created, *args, **kwargs):
 
 
 post_save.connect(marketing_pref_create_receiver, sender=MarketingPreference)
+
 
 def marketing_pref_update_receiver(sender, instance, *args, **kwargs):
     if instance.subscribed != instance.mailchimp_subscribed:
@@ -47,14 +46,9 @@ def marketing_pref_update_receiver(sender, instance, *args, **kwargs):
 pre_save.connect(marketing_pref_update_receiver, sender=MarketingPreference)
 
 
-
 def make_marketing_pref_receiver(sender, instance, created, *args, **kwargs):
-    '''
-    User model
-    '''
     if created:
         MarketingPreference.objects.get_or_create(user=instance)
 
 post_save.connect(make_marketing_pref_receiver, sender=settings.AUTH_USER_MODEL)
-
 
