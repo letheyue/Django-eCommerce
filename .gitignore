@@ -92,3 +92,6 @@ src/marketing/migrations
 src/marketing/__init__.py
 src/marketing/__pycache__
 src/marketing/*.pyc
+
+#ignore setting info
+src/ecommerce/settings.py
