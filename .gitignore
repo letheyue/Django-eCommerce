@@ -86,3 +86,9 @@ src/analytics/migrations
 src/analytics/__init__.py
 src/analytics/__pycache__
 src/analytics/*.pyc
+
+#ignore the init and cache in marketing component
+src/marketing/migrations
+src/marketing/__init__.py
+src/marketing/__pycache__
+src/marketing/*.pyc
