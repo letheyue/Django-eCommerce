@@ -13,7 +13,7 @@ pip-selfcheck.json
 
 .Python
 
-src/ecommerce/__pycache__
+/ecommerce/__pycache__
 
 #src/ecommerce/__init__.py
 
@@ -102,7 +102,6 @@ src/ecommerce/settings.py
 
 # Django related 
 src/ecommerce/settings/local.py
-#src/ecommerce/settings/__init__.py
 src/ecommerce/settings/local_yue.py
 
 
