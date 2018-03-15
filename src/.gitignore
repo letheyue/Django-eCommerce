@@ -15,7 +15,7 @@ pip-selfcheck.json
 
 src/ecommerce/__pycache__
 
-src/ecommerce/__init__.py
+#src/ecommerce/__init__.py
 
 src/ecommerce/*.pyc
 
@@ -27,7 +27,7 @@ src/static_my_proj/img
 
 #ignore the __init__.py
 src/products/__pycache__/
-src/products/__init__.py
+#src/products/__init__.py
 src/products/migrations
 src/products/*.pyc
 
@@ -36,7 +36,7 @@ src/products/templates/bootstrap/
 
 #ignore the init and cache in search component
 src/search/migrations
-src/search/__init__.py
+#src/search/__init__.py
 src/search/__pycache__
 src/search/*.pyc
 
@@ -45,37 +45,37 @@ src/tags/shell_commands.py
 
 #ignore the init and cache in tag component
 src/tags/migrations
-src/tags/__init__.py
+#src/tags/__init__.py
 src/tags/__pycache__
 src/tags/*.pyc
 
 #ignore the init and cache in carts component
 src/carts/migrations
-src/carts/__init__.py
+#src/carts/__init__.py
 src/carts/__pycache__
 src/carts/*.pyc
 
 #ignore the init and cache in orders component
 src/orders/migrations
-src/orders/__init__.py
+#src/orders/__init__.py
 src/orders/__pycache__
 src/orders/*.pyc
 
 #ignore the init and cache in accounts component
 src/accounts/migrations
-src/accounts/__init__.py
+#src/accounts/__init__.py
 src/accounts/__pycache__
 src/accounts/*.pyc
 
 #ignore the init and cache in billing component
 src/billing/migrations
-src/billing/__init__.py
+#src/billing/__init__.py
 src/billing/__pycache__
 src/billing/*.pyc
 
 #ignore the init and cache in addresses component
 src/addresses/migrations
-src/addresses/__init__.py
+#src/addresses/__init__.py
 src/addresses/__pycache__
 src/addresses/*.pyc
 
@@ -84,13 +84,13 @@ src/products/fixtures/
 
 #ignore the init and cache in analytics component
 src/analytics/migrations
-src/analytics/__init__.py
+#src/analytics/__init__.py
 src/analytics/__pycache__
 src/analytics/*.pyc
 
 #ignore the init and cache in marketing component
 src/marketing/migrations
-src/marketing/__init__.py
+#src/marketing/__init__.py
 src/marketing/__pycache__
 src/marketing/*.pyc
 
@@ -102,7 +102,7 @@ src/ecommerce/settings.py
 
 # Django related 
 src/ecommerce/settings/local.py
-src/ecommerce/settings/__init__.py
+#src/ecommerce/settings/__init__.py
 src/ecommerce/settings/local_yue.py
 
 
