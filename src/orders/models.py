@@ -34,10 +34,10 @@ class OrderManager(models.Manager):
 class Order(models.Model):
 	# pk / id
     order_id        = models.CharField(max_length=120, blank=True) # char + number
-    billing_profile = models.ForeignKey(BillingProfile, null=True, blank=True)
-    shipping_address    = models.ForeignKey(Address, related_name="shipping_address",null=True, blank=True)
-    billing_address     = models.ForeignKey(Address, related_name="billing_address", null=True, blank=True)
-    cart            = models.ForeignKey(Cart)
+    billing_profile = models.ForeignKey(BillingProfile, null=True, blank=True, on_delete=models.CASCADE)
+    shipping_address    = models.ForeignKey(Address, related_name="shipping_address",null=True, blank=True, on_delete=models.CASCADE)
+    billing_address     = models.ForeignKey(Address, related_name="billing_address", null=True, blank=True, on_delete=models.CASCADE)
+    cart            = models.ForeignKey(Cart, on_delete=models.CASCADE)
     status          = models.CharField(max_length=120, default='created', choices=ORDER_STATUS_CHOICES)
     shipping_total  = models.DecimalField(default=5.99, max_digits=100, decimal_places=2)
     total           = models.DecimalField(default=0.00, max_digits=100, decimal_places=2)
