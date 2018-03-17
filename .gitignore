@@ -15,8 +15,6 @@ pip-selfcheck.json
 
 src/ecommerce/__pycache__
 
-#src/ecommerce/__init__.py
-
 src/ecommerce/*.pyc
 
 # ignore the document static_cdn
@@ -94,14 +92,8 @@ src/marketing/migrations
 src/marketing/__pycache__
 src/marketing/*.pyc
 
-#ignore setting info
-src/ecommerce/settings.py
-
-#ignore ecommerce/settings
-#src/ecommerce/settings
-
 # Django related 
-src/ecommerce/settings/local.py
+
 src/ecommerce/settings/local_yue.py
 
 
@@ -158,7 +150,6 @@ coverage.xml
 
 # Django stuff:
 *.log
-local_settings.py
 
 # Flask stuff:
 instance/

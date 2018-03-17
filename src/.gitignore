@@ -1,108 +1,23 @@
+# Not Ready for Production
+# marketing/
+
+
+ecommerce/settings/local.py
+
+.DS_STORE
+*.sublime-project
+fasttracktojquery/
+
+
+
+# Virtualenv related
+bin/
 include/
-
-lib/
-*.pyc
-
-*/.DS_Store
-
-eCommerce.sublime-project
-
-eCommerce.sublime-workspace
-
 pip-selfcheck.json
 
-.Python
-
-/ecommerce/__pycache__
-
-#src/ecommerce/__init__.py
-
-src/ecommerce/*.pyc
-
-# ignore the document static_cdn
-static_cdn
-
-#ignore the document src/static_my_proj/img
-src/static_my_proj/img
-
-#ignore the __init__.py
-src/products/__pycache__/
-#src/products/__init__.py
-src/products/migrations
-src/products/*.pyc
-
-#ignore the draft code
-src/products/templates/bootstrap/
-
-#ignore the init and cache in search component
-src/search/migrations
-#src/search/__init__.py
-src/search/__pycache__
-src/search/*.pyc
-
-#ignore the shell draft
-src/tags/shell_commands.py
-
-#ignore the init and cache in tag component
-src/tags/migrations
-#src/tags/__init__.py
-src/tags/__pycache__
-src/tags/*.pyc
-
-#ignore the init and cache in carts component
-src/carts/migrations
-#src/carts/__init__.py
-src/carts/__pycache__
-src/carts/*.pyc
-
-#ignore the init and cache in orders component
-src/orders/migrations
-#src/orders/__init__.py
-src/orders/__pycache__
-src/orders/*.pyc
-
-#ignore the init and cache in accounts component
-src/accounts/migrations
-#src/accounts/__init__.py
-src/accounts/__pycache__
-src/accounts/*.pyc
-
-#ignore the init and cache in billing component
-src/billing/migrations
-#src/billing/__init__.py
-src/billing/__pycache__
-src/billing/*.pyc
-
-#ignore the init and cache in addresses component
-src/addresses/migrations
-#src/addresses/__init__.py
-src/addresses/__pycache__
-src/addresses/*.pyc
-
-#ignore the json data
-src/products/fixtures/
-
-#ignore the init and cache in analytics component
-src/analytics/migrations
-#src/analytics/__init__.py
-src/analytics/__pycache__
-src/analytics/*.pyc
-
-#ignore the init and cache in marketing component
-src/marketing/migrations
-#src/marketing/__init__.py
-src/marketing/__pycache__
-src/marketing/*.pyc
-
-#ignore setting info
-src/ecommerce/settings.py
-
-#ignore ecommerce/settings
-#src/ecommerce/settings
-
 # Django related 
-src/ecommerce/settings/local.py
-src/ecommerce/settings/local_yue.py
+
+# static-cdn/  # any collected static files 
 
 
 # Byte-compiled / optimized / DLL files
@@ -204,8 +119,3 @@ ENV/
 
 # mypy
 .mypy_cache/
-
-#ignore upgrade info
-src/requirements/
-
-bin/cfe/
