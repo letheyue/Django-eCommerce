@@ -1,8 +1,8 @@
 #ignore aws key
 src/ecommerce/aws/conf.py
 
-#ignore __init__.py for production/local
-src/ecommerce/settings/__init__.py
+#ignore production/local
+src/ecommerce/settings/
 
 bin/
 
