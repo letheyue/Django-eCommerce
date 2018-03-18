@@ -8,7 +8,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '+e-7yhr5k2w6_xv0h8cq^$h%#u4j*4l-)0)pzn&38sexvs@g9a'
+SECRET_KEY = os.environ.get('SECRET_KEY')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -51,11 +52,13 @@ FORCE_INACTIVE_USER_ENDSESSION= False
 
 
 MAILCHIMP_API_KEY = "b9ab1bdede042a0de2672af1137911df-us12"
+MAILCHIMP_API_KEY = os.environ.get("MAILCHIMP_API_KEY")
 MAILCHIMP_DATA_CENTER = "us12"
 MAILCHIMP_EMAIL_LIST_ID = "dd1d6bcee6"
+MAILCHIMP_EMAIL_LIST_ID = os.environ.get("MAILCHIMP_EMAIL_LIST_ID")
 
-STRIPE_SECRET_KEY = "sk_test_Vsa3Q1q8k6YRX2J600IWWzjl"
-STRIPE_PUB_KEY =  'pk_test_zrQeiyEJDcWZZUouU084QErp'
+STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY", "sk_test_Vsa3Q1q8k6YRX2J600IWWzjl")
+STRIPE_PUB_KEY =  os.environ.get("STRIPE_PUB_KEY",'pk_test_zrQeiyEJDcWZZUouU084QErp')
 
 
 MIDDLEWARE = [
