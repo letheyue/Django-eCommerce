@@ -1,3 +1,8 @@
+#ignore aws key
+src/ecommerce/aws/conf.py
+
+bin/
+
 include/
 
 lib/
