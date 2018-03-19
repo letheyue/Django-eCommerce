@@ -3,6 +3,9 @@
 
 
 ecommerce/settings/local.py
+ecommerce/settings/local_yue.py
+
+.env
 
 .DS_STORE
 *.sublime-project

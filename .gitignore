@@ -5,6 +5,7 @@ src/ecommerce/aws/conf.py
 src/ecommerce/settings/
 
 bin/
+.env
 
 include/
 
