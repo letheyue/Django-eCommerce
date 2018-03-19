@@ -41,7 +41,7 @@ from marketing.views import MarketingPreferenceUpdateView, MailchimpWebhookView
 
 urlpatterns = [
 	url(r'^$', home_page, name='home'),
-	url(r'^about/$', about_page, name='contact'),
+	url(r'^about/$', about_page, name='about'),
 	url(r'^contact/$', contact_page, name='contact'),
 	url(r'^login/$', LoginView.as_view(), name='login'),
 	url(r'^register/$', RegisterView.as_view(), name='register'),
