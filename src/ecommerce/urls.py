@@ -18,7 +18,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls import url, include
 from django.contrib import admin
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, RedirectView
 from django.contrib.auth.views import LogoutView
 
 from accounts.views import LoginView, RegisterView, guest_register_view
@@ -58,6 +58,10 @@ urlpatterns = [
     url(r'^billing/payment-method/create/$', payment_method_createview, name='billing-payment-method-endpoint'),
     url(r'^settings/email/$', MarketingPreferenceUpdateView.as_view(), name='marketing-pref'),
     url(r'^webhooks/mailchimp/$', MailchimpWebhookView.as_view(), name='webhooks-mailchimp'),
+    #url(r'^accounts/login/$', RedirectView.as_view(url='/login')),
+    url(r'^account/', include(("accounts.urls", 'account'), namespace='account')),
+    url(r'^accounts/$', RedirectView.as_view(url='/account')),
+    url(r'^settings/$', RedirectView.as_view(url='/account')),
     # url(r'^products/$', ProductListView.as_view()),
     # url(r'^products-fbv/$', product_list_view),
     # # url(r'^products/(?P<pk>\d+)/$', ProductDetailView.as_view()),
