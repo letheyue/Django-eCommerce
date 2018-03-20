@@ -7,9 +7,14 @@ from django.db.models.signals import pre_save, post_save
 
 from django.core.mail import send_mail
 from django.template.loader import get_template
+from datetime import timedelta
+from django.utils import timezone
+from django.core.urlresolvers import reverse
 
 from ecommerce.utils import random_string_generator, unique_key_generator
 
+
+DEFAULT_ACTIVATION_DAYS = getattr(settings, 'DEFAULT_ACTIVATION_DAYS', 7)
 #send_mail(subject, message, from_email, recipient_list, html_message)
 
 class UserManager(BaseUserManager):
@@ -94,6 +99,29 @@ class User(AbstractBaseUser):
     # def is_active(self):
     #     return self.active
 
+class EmailActivationQuerySet(models.query.QuerySet):
+    def confirmable(self):
+        now = timezone.now()
+        start_range = now - timedelta(days=DEFAULT_ACTIVATION_DAYS)
+        # does my object have a timestamp in here
+        end_range = now
+        return self.filter(
+                activated = False,
+                forced_expired = False
+              ).filter(
+                timestamp__gt=start_range,
+                timestamp__lte=end_range
+              )
+
+
+class EmailActivationManager(models.Manager):
+    def get_queryset(self):
+        return EmailActivationQuerySet(self.model, using=self._db)
+
+    def confirmable(self):
+        return self.get_queryset().confirmable()
+
+
 class EmailActivation(models.Model):
     user            = models.ForeignKey(User)
     email           = models.EmailField()
@@ -104,8 +132,28 @@ class EmailActivation(models.Model):
     timestamp       = models.DateTimeField(auto_now_add=True)
     update          = models.DateTimeField(auto_now=True)
 
+    objects = EmailActivationManager()
+
     def __str__(self):
         return self.email
+
+    def can_activate(self):
+        qs = EmailActivation.objects.filter(pk=self.pk).confirmable() # 1 object
+        if qs.exists():
+            return True
+        return False
+
+    def activate(self):
+        if self.can_activate():
+            # pre activation user signal
+            user = self.user
+            user.is_active = True
+            user.save()
+            # post activation signal for user
+            self.activated = True
+            self.save()
+            return True
+        return False
 
     def regenerate(self):
         self.key = None
@@ -118,7 +166,7 @@ class EmailActivation(models.Model):
         if not self.activated and not self.forced_expired:
             if self.key:
                 base_url = getattr(settings, 'BASE_URL', 'https://www.pythonecommerce.com')
-                key_path = self.key # use reverse
+                key_path = reverse("account:email-activate", kwargs={'key': self.key}) # use reverse
                 path = "{base}{path}".format(base=base_url, path=key_path)
                 context = {
                     'path': path,
