@@ -4,7 +4,7 @@ from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.core.urlresolvers import reverse
 from django.utils.safestring import mark_safe
 
-from .models import EmailActivation
+from .models import EmailActivation, GuestEmail
 
 
 
@@ -71,8 +71,26 @@ class UserAdminChangeForm(forms.ModelForm):
 
 
 
-class GuestForm(forms.Form):
-    email    = forms.EmailField()
+class GuestForm(forms.ModelForm):
+    #email    = forms.EmailField()
+    class Meta:
+        model = GuestEmail
+        fields = [
+            'email'
+        ]
+
+    def __init__(self, request, *args, **kwargs):
+        self.request = request
+        super(GuestForm, self).__init__(*args, **kwargs)
+
+    def save(self, commit=True):
+        # Save the provided password in hashed format
+        obj = super(GuestForm, self).save(commit=False)
+        if commit:
+            obj.save()
+            request = self.request
+            request.session['guest_email_id'] = obj.id
+        return obj
 
 
 class LoginForm(forms.Form):
@@ -100,7 +118,7 @@ class LoginForm(forms.Form):
                 """.format(resend_link = link)
                 confirm_email = EmailActivation.objects.filter(email=email)
                 is_confirmable = confirm_email.confirmable().exists()
-                if is_confirmable: # not confirm (not is_active)
+                if is_confirmable: # not confirm (not activated)
                     msg1 = "Please check your email to confirm your account or " + reconfirm_msg.lower()
                     raise forms.ValidationError(mark_safe(msg1))
                 email_confirm_exists = EmailActivation.objects.email_exists(email).exists()
