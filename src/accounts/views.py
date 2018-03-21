@@ -14,6 +14,7 @@ from django.views.generic.edit import FormMixin
 from .signals import user_logged_in
 from .forms import LoginForm, RegisterForm, GuestForm, ReactivateEmailForm
 from .models import GuestEmail, EmailActivation
+from ecommerce.mixins import NextUrlMixin, RequestFormAttachMixin
 
 # @login_required # /accounts/login/?next=/some/path/
 # def account_home_view(request):
@@ -95,39 +96,15 @@ def guest_register_view(request):
             return redirect("/register/")
     return redirect("/register/")
 
-class LoginView(FormView):
+class LoginView(NextUrlMixin, RequestFormAttachMixin, FormView):
     form_class = LoginForm
     success_url = '/'
     template_name = 'accounts/login.html'
-
-    def form_invalid(self, form):
-        return super(LoginView, self).form_invalid(form)
+    default_next = '/'
 
     def form_valid(self, form):
-        request = self.request
-        next_ = request.GET.get('next')
-        next_post = request.POST.get('next')
-        redirect_path = next_ or next_post or None
-        email  = form.cleaned_data.get("email")
-        password  = form.cleaned_data.get("password")
-        user = authenticate(request, username=email, password=password)
-        print(user)
-        if user is not None:
-            if not user.is_active:
-                print('inactive user..')
-                messages.success(request, "This user is inactive")
-                return super(LoginView, self).form_invalid(form)
-            login(request, user)
-            user_logged_in.send(user.__class__, instance=user, request=request)
-            try:
-                del request.session['guest_email_id']
-            except:
-                pass
-            if is_safe_url(redirect_path, request.get_host()):
-                return redirect(redirect_path)
-            else:
-                return redirect("/")
-        return super(LoginView, self).form_invalid(form)
+        next_path = self.get_next_url()
+        return redirect(next_path)
 
 
 class RegisterView(CreateView):
