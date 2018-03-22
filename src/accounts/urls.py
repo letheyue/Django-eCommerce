@@ -1,8 +1,10 @@
 from django.conf.urls import url
 
+from products.views import UserProductHistoryView
 from .views import (
         AccountHomeView, 
-        AccountEmailActivateView
+        AccountEmailActivateView,
+        UserDetailUpdateView
         )
 
 urlpatterns = [
@@ -13,6 +15,8 @@ urlpatterns = [
     url(r'^email/resend-activation/$', 
             AccountEmailActivateView.as_view(), 
             name='resend-activation'),
+    url(r'^details/$', UserDetailUpdateView.as_view(), name='user-update'),
+    url(r'history/products/$', UserProductHistoryView.as_view(), name='user-product-history'),
 ]
 
 # account/email/confirm/asdfads/ -> activation view 
