@@ -23,7 +23,7 @@ from django.contrib.auth.views import LogoutView
 
 from accounts.views import LoginView, RegisterView, GuestRegisterView
 from .views import home_page, about_page, contact_page
-from addresses.views import checkout_address_create_view, checkout_address_reuse_view
+from addresses.views import checkout_address_create_view, checkout_address_reuse_view, AddressListView, AddressCreateView, AddressUpdateView 
 from carts.views import cart_detail_api_view
 from billing.views import payment_method_view, payment_method_createview
 from marketing.views import MarketingPreferenceUpdateView, MailchimpWebhookView
@@ -63,7 +63,11 @@ urlpatterns = [
     url(r'^accounts/$', RedirectView.as_view(url='/account')),
     url(r'^settings/$', RedirectView.as_view(url='/account')),
     url(r'^accounts/', include("accounts.passwords.urls")),
-    url(r'^orders/', include("orders.urls", namespace='orders')),    
+    url(r'^orders/', include("orders.urls", namespace='orders')),  
+    url(r'^address/$', RedirectView.as_view(url='/addresses')),
+    url(r'^addresses/$', AddressListView.as_view(), name='addresses'), 
+    url(r'^addresses/create/$', AddressCreateView.as_view(), name='address-create'),
+    url(r'^addresses/(?P<pk>\d+)/$', AddressUpdateView.as_view(), name='address-update'), 
     # url(r'^products/$', ProductListView.as_view()),
     # url(r'^products-fbv/$', product_list_view),
     # # url(r'^products/(?P<pk>\d+)/$', ProductDetailView.as_view()),

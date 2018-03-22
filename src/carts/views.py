@@ -8,7 +8,7 @@ from .models import Cart
 from billing.models import BillingProfile
 from accounts.forms import LoginForm, GuestForm
 from accounts.models import GuestEmail
-from addresses.forms import AddressForm
+from addresses.forms import AddressCheckoutForm
 from addresses.forms import Address
 
 import stripe
@@ -93,7 +93,7 @@ def checkout_home(request):
 
     guest_form = GuestForm(request=request)
 
-    address_form = AddressForm()
+    address_form = AddressCheckoutForm()
 
     billing_address_id = request.session.get("billing_address_id", None)
     shipping_address_id = request.session.get("shipping_address_id", None)

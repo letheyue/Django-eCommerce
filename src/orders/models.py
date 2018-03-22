@@ -60,6 +60,8 @@ class Order(models.Model):
     active          = models.BooleanField(default=True)
     updated             = models.DateTimeField(auto_now=True)
     timestamp           = models.DateTimeField(auto_now_add=True)
+    shipping_address_final    = models.TextField(blank=True, null=True)
+    billing_address_final     = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.order_id
@@ -110,6 +112,12 @@ def pre_save_create_order_id(sender, instance, *args, **kwargs):
     qs = Order.objects.filter(cart=instance.cart).exclude(billing_profile=instance.billing_profile)
     if qs.exists():
         qs.update(active = False)
+
+    if instance.shipping_address and not instance.shipping_address_final:
+        instance.shipping_address_final = instance.shipping_address.get_address()
+
+    if instance.billing_address and not instance.billing_address_final:
+        instance.billing_address_final = instance.billing_address.get_address()
         
 pre_save.connect(pre_save_create_order_id, sender = Order)
 
