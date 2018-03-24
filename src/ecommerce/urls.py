@@ -27,6 +27,7 @@ from addresses.views import checkout_address_create_view, checkout_address_reuse
 from carts.views import cart_detail_api_view
 from billing.views import payment_method_view, payment_method_createview
 from marketing.views import MarketingPreferenceUpdateView, MailchimpWebhookView
+from orders.views import LibraryView
 
 # from products.views import (
 # 		ProductListView, 
@@ -68,6 +69,7 @@ urlpatterns = [
     url(r'^addresses/$', AddressListView.as_view(), name='addresses'), 
     url(r'^addresses/create/$', AddressCreateView.as_view(), name='address-create'),
     url(r'^addresses/(?P<pk>\d+)/$', AddressUpdateView.as_view(), name='address-update'), 
+    url(r'^library/$', LibraryView.as_view(), name='library'),
     # url(r'^products/$', ProductListView.as_view()),
     # url(r'^products-fbv/$', product_list_view),
     # # url(r'^products/(?P<pk>\d+)/$', ProductDetailView.as_view()),
