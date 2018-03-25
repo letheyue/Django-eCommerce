@@ -86,40 +86,85 @@ $(document).ready(function(){
 
   // Cart + Add Products 
   var productForm = $(".form-product-ajax") // #form-product-ajax
-  productForm.submit(function(event){
-      event.preventDefault(); // not allow the event to submit
-      // console.log("Form is not sending")
-      var thisForm = $(this)
-      // var actionEndpoint = thisForm.attr("action");
-      var actionEndpoint = thisForm.attr("data-endpoint")
-      var httpMethod = thisForm.attr("method");
-      var formData = thisForm.serialize();
-      $.ajax({
+
+  function getOwnedProduct(productId, submitSpan){
+    var actionEndpoint = '/orders/endpoint/verify/ownership/'
+    var httpMethod = 'GET'
+    var data = {
+      product_id: productId
+    }
+
+    var isOwner;
+    $.ajax({
         url: actionEndpoint,
         method: httpMethod,
-        data: formData,
+        data: data,
         success: function(data){
-          var submitSpan = thisForm.find(".submit-span")
-          if (data.added){
-            submitSpan.html("In cart <button type='submit' class='btn btn-link'>Remove?</button>")
+          console.log(data)
+          console.log(data.owner)
+          if (data.owner){
+            isOwner = true
+            submitSpan.html("<a class='btn btn-warning' href='/library/'>In Library</a>")
           } else {
-            submitSpan.html("<button type='submit'  class='btn btn-success'>Add to cart</button>")
+            isOwner = false
           }
-          var navbarCount = $(".navbar-cart-count")
-            navbarCount.text(data.cartItemCount)
-          var currentPath = window.location.href
-            if (currentPath.indexOf("cart") != -1) {
-              refreshCart()
-          }
-         },
-        error: function(errorData){
-          $.alert({
-            title: "Oops!",
-            content: "An error occurred",
-            theme: "modern",
-          })
+        },
+        error: function(erorr){
+          console.log(error)
+
         }
-      })
+    })
+    return isOwner
+  }
+
+  $.each(productForm, function(index, object){
+    var $this = $(this)
+    var isUser = $this.attr("data-user")
+    var submitSpan = $this.find(".submit-span")
+    var productInput = $this.find("[name='product_id']")
+    var productId = productInput.attr("value")
+    var productIsDigital = productInput.attr("data-is-digital")
+    
+    if (productIsDigital && isUser){
+      var isOwned = getOwnedProduct(productId, submitSpan)
+
+    }
+  })  
+
+  productForm.submit(function(event){
+    event.preventDefault(); // not allow the event to submit
+    // console.log("Form is not sending")
+    var thisForm = $(this)
+    // var actionEndpoint = thisForm.attr("action");
+    var actionEndpoint = thisForm.attr("data-endpoint")
+    var httpMethod = thisForm.attr("method");
+    var formData = thisForm.serialize();
+    $.ajax({
+      url: actionEndpoint,
+      method: httpMethod,
+      data: formData,
+      success: function(data){
+        var submitSpan = thisForm.find(".submit-span")
+        if (data.added){
+          submitSpan.html("<div class='btn-group'> <a class='btn btn-link' href='/cart/'>In cart</a> <button type='submit' class='btn btn-link'>Remove?</button></div>")
+        } else {
+          submitSpan.html("<button type='submit'  class='btn btn-success'>Add to cart</button>")
+        }
+        var navbarCount = $(".navbar-cart-count")
+          navbarCount.text(data.cartItemCount)
+        var currentPath = window.location.href
+          if (currentPath.indexOf("cart") != -1) {
+            refreshCart()
+          }
+       },
+      error: function(errorData){
+        $.alert({
+          title: "Oops!",
+          content: "An error occurred",
+          theme: "modern",
+        })
+      }
+    })
   })
 
   function refreshCart(){
