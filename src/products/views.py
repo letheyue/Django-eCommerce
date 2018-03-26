@@ -1,5 +1,5 @@
 #from django.views import ListView
-from django.http import Http404, HttpResponse
+from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.views.generic import ListView, DetailView, View
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -70,6 +70,36 @@ def product_list_view(request):
 	return render(request, "products/list.html", context)
 
 
+class ProductDetailSlugView(ObjectViewedMixin, DetailView):
+	queryset = Product.objects.all()
+	template_name = "products/detail.html"
+
+	def get_context_data(self, *args, **kwargs):
+		context = super(ProductDetailSlugView, self).get_context_data(*args, **kwargs)
+		cart_obj, new_obj = Cart.objects.new_or_get(self.request)
+		context['cart'] = cart_obj
+
+		return context
+
+	def get_object(self, *args, **kwargs):
+		request = self.request
+		slug = self.kwargs.get('slug')
+		# instance = get_object_or_404(Product, slug = slug, active = True)
+		try: 
+			instance = Product.objects.get(slug = slug, active = True)
+		except Product.DoesNotExist:
+			raise Http404("Not found...")
+		except Product.MultipleObjectsReturned: 
+			qs = Product.objects.filter(slug = slug, active = True)
+			instance = qs.first()
+		except:
+			raise Http404("Uhhmmm")
+
+		# object_viewed_signal.send(instance.__class__, instance=instance, request=request)
+
+		return instance
+
+
 import os
 from wsgiref.util import FileWrapper # this used in django
 from mimetypes import guess_type
@@ -107,19 +137,22 @@ class ProductDownloadView(View):
             messages.error(request, "You do not have access to download this item")
             return redirect(download_obj.get_default_url())
 
-        file_root = settings.PROTECTED_ROOT
-        filepath = download_obj.file.path # .url /media/
-        final_filepath = os.path.join(file_root, filepath) # where the file is stored
-        with open(final_filepath, 'rb') as f:
-            wrapper = FileWrapper(f)
-            mimetype = 'application/force-download'
-            gussed_mimetype = guess_type(filepath)[0] # filename.mp4
-            if gussed_mimetype:
-                mimetype = gussed_mimetype
-            response = HttpResponse(wrapper, content_type=mimetype)
-            response['Content-Disposition'] = "attachment;filename=%s" %(download_obj.name)
-            response["X-SendFile"] = str(download_obj.name)
-            return response
+        aws_filepath = download_obj.generate_download_url()
+        print(aws_filepath)
+        return HttpResponseRedirect(aws_filepath)
+        # file_root = settings.PROTECTED_ROOT
+        # filepath = download_obj.file.path # .url /media/
+        # final_filepath = os.path.join(file_root, filepath) # where the file is stored
+        # with open(final_filepath, 'rb') as f:
+        #     wrapper = FileWrapper(f)
+        #     mimetype = 'application/force-download'
+        #     gussed_mimetype = guess_type(filepath)[0] # filename.mp4
+        #     if gussed_mimetype:
+        #         mimetype = gussed_mimetype
+        #     response = HttpResponse(wrapper, content_type=mimetype)
+        #     response['Content-Disposition'] = "attachment;filename=%s" %(download_obj.name)
+        #     response["X-SendFile"] = str(download_obj.name)
+        #     return response
 
 
 class ProductDetailView(ObjectViewedMixin, DetailView):
@@ -145,34 +178,6 @@ class ProductDetailView(ObjectViewedMixin, DetailView):
 	# 	pk = self.kwargs.get('pk')
 	# 	return Product.objects.filter(pk = pk)
 
-class ProductDetailSlugView(ObjectViewedMixin, DetailView):
-	queryset = Product.objects.all()
-	template_name = "products/detail.html"
-
-	def get_context_data(self, *args, **kwargs):
-		context = super(ProductDetailSlugView, self).get_context_data(*args, **kwargs)
-		cart_obj, new_obj = Cart.objects.new_or_get(self.request)
-		context['cart'] = cart_obj
-
-		return context
-
-	def get_object(self, *args, **kwargs):
-		request = self.request
-		slug = self.kwargs.get('slug')
-		# instance = get_object_or_404(Product, slug = slug, active = True)
-		try: 
-			instance = Product.objects.get(slug = slug, active = True)
-		except Product.DoesNotExist:
-			raise Http404("Not found...")
-		except Product.MultipleObjectsReturned: 
-			qs = Product.objects.filter(slug = slug, active = True)
-			instance = qs.first()
-		except:
-			raise Http404("Uhhmmm")
-
-		# object_viewed_signal.send(instance.__class__, instance=instance, request=request)
-
-		return instance
 
 def product_detail_view(request, pk = None, *args, **kwargs):
 	#instance = Product.objects.get(pk = pk, featured = True) # id

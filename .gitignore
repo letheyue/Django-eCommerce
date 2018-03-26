@@ -1,5 +1,5 @@
 #ignore aws key
-src/ecommerce/aws/conf.py
+src/ecommerce/aws/
 
 #ignore production/local
 src/ecommerce/settings/

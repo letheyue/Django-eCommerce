@@ -72,6 +72,7 @@ $(document).ready(function(){
     clearTimeout(typingTimer)
   })
   function displaySearching(){
+    console.log("hello")
     searchBtn.addClass("disabled")
     searchBtn.html("<i class='fa fa-spin fa-spinner'></i> Searching...")
   }
