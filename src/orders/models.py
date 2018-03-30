@@ -3,6 +3,8 @@ from django.db.models.signals import pre_save, post_save
 from decimal import Decimal
 from django.core.urlresolvers import reverse
 from django.conf import settings
+from django.db.models import Count, Sum, Avg
+
 
 from carts.models import Cart
 from ecommerce.utils import unique_order_id_generator 
@@ -18,6 +20,25 @@ ORDER_STATUS_CHOICES = (
 )
 
 class OrderManagerQuerySet(models.query.QuerySet):
+    def recent(self):
+        return self.order_by("-updated", "-timestamp")
+
+    def totals_data(self):
+        return self.aggregate(Sum("total"), Avg("total"))
+
+    def cart_data(self):
+        return self.aggregate(
+                        Sum("cart__products__price"), 
+                        Avg("cart__products__price"), 
+                        Count("cart__products")
+                                    )
+
+    def by_status(self, status="shipped"):
+        return self.filter(status=status)
+
+    def not_refunded(self):
+        return self.exclude(status='refunded')
+
     def by_request(self, request):
         billing_profile, created = BillingProfile.objects.new_or_get(request)
         return self.filter(billing_profile=billing_profile)
